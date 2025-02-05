@@ -23,9 +23,6 @@ Wire-up fragmented codes and files from various sources with a single command.
 <a href="#what-is-loose-dependency-manager">What is loose dependency manager?</a>
 </p>
 
-<h4 align="center">
-
-</h4>
 <br>
 <br>
 
