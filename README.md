@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://vitest.dev">
+<a href="#">
 <img src="https://raw.githubusercontent.com/ldm-org/ldm/refs/heads/master/assets/logo.png" height="150">
 </a>
 </p>
@@ -11,14 +11,14 @@ Loose Dependency Manager
 Wire-up fragmented codes and files from various sources with a single command.
 <p>
 <p align="center">
-  <a href="https://www.npmjs.com/package/vitest"><img src="https://img.shields.io/npm/v/loose-dependency-manager?color=729B1B&label="></a>
+  <a href="https://www.npmjs.com/package/loose-dependency-manager"><img src="https://img.shields.io/npm/v/loose-dependency-manager?color=729B1B&label="></a>
 <p>
 
 <p align="center">
- <a href="#">Documentation</a> | <a href="#quick-start">Getting Started</a> | <a href="#examples">Examples</a>
+ <a onclick="alert('Documentation is not ready yet. I\'ll try to write it ASAP.')" href="#">Documentation</a> | <a href="#quick-start">Getting Started</a> | <a href="#examples">Examples</a>
 </p>
 <p align="center">
-<a href="#">What is loose dependency manager?</a>
+<a href="#what-is-loose-dependency-manager">What is loose dependency manager?</a>
 </p>
 
 <h4 align="center">
@@ -26,6 +26,23 @@ Wire-up fragmented codes and files from various sources with a single command.
 </h4>
 <br>
 <br>
+
+## What is loose dependency manager?
+
+Loose Dependency Manager (`ldm`) is a tool that helps you manage dependencies from various sources in a single file.
+
+You can think of it as a sophisticated form of [scp](https://en.wikipedia.org/wiki/Secure_copy_protocol) command
+that can be configured with a single specification file (`ldm.yaml`) 
+and that supports versioning (if the remote source supports it) and locking mechanism.
+
+Currently, it supports the following sources:
+
+| Provider | Versioning Support | Can Download | URI Format |
+| --- | --- | --- | --- |
+| HTTP(S) | ❌ | only files | HTTP(S) URL |
+| GitHub | ✅ | files & directories | `<github-source-id>:///path/to/file` |
+| jsdelivr (npm) | ✅ | files & directories | `<jsdelivr-source-id>://default` or `<jsdelivr-source-id>:///path/to/file` |
+| jsdelivr (github) | ✅ | files & directories | `<jsdelivr-source-id>:///path/to/file` |
 
 ## Installation
 
@@ -42,9 +59,6 @@ You write a dependency specification file named `ldm.yaml`.
 > **when using GitHub as a source provider (even if you're using for public repositories).**
 > Github API imposes a harsh rate limit of 60 requests per hour for unauthenticated requests, 
 > so you may run into rate limit issues without a token.
-
-<details>
-<summary>Example `ldm.yaml`</summary>
 
 ```yaml
 version: "1"
@@ -89,9 +103,6 @@ config:
   envFile: .env
   deleteFilesOnRemove: true
 ```
-</details>
-
-<br />
 
 Then in terminal, run the following command.
 
@@ -101,9 +112,6 @@ ldm install
 
 This will produce the following file sturcture, 
 assuming that `ldm.yaml` is the only file in the directory.
-
-<details>
-<summary>Example output</summary>
 
 ```
 |- ldm.yaml
@@ -122,9 +130,6 @@ assuming that `ldm.yaml` is the only file in the directory.
 |----- js/
 |------- core.min.js
 ```
-</details>
-
-<br />
 
 The example above can be summarized as following diagram.
 
