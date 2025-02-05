@@ -23,6 +23,9 @@ dependencies:
   deep-object-diff:
     specifier: ^1.1.9
     version: 1.1.9
+  dotenv:
+    specifier: ^16.4.7
+    version: 16.4.7
   fp-ts:
     specifier: ^2.16.3
     version: 2.16.9
@@ -109,9 +112,6 @@ devDependencies:
   dir-compare:
     specifier: ^5.0.0
     version: 5.0.0
-  dotenv:
-    specifier: ^16.4.7
-    version: 16.4.7
   eslint:
     specifier: ^8.57.1
     version: 8.57.1
@@ -2020,7 +2020,6 @@ packages:
   /dotenv@16.4.7:
     resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
     engines: {node: '>=12'}
-    dev: true
 
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
