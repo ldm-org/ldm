@@ -2,7 +2,7 @@ import { SourceSchema } from "@/api/models/source";
 import { JSDelivrSource } from "../../jsdelivr/source";
 
 const packageNameRegex =
-  /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
+  /^(@[a-zA-Z0-9-~][a-zA-Z0-9-._~]*\/)?[a-zA-Z0-9-~][a-zA-Z0-9-._~]*$/;
 
 export class JSDelivrNPMSource extends JSDelivrSource {
   declare public readonly provider: "jsdelivr:npm";
