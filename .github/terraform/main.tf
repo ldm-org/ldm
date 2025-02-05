@@ -2,13 +2,26 @@
 # Github Repository
 # ---------------------------
 resource "github_repository" "ldm" {
-  name            = "ldm"
-  visibility      = "public"
+  name       = "ldm"
+  visibility = "public"
+
   has_issues      = true
   has_projects    = true
   has_downloads   = true
   has_discussions = false
   has_wiki        = false
+
+  description = "Wire-up fragmented codes and files from various sources with a single command."
+  topics = [
+    "dependency",
+    "manager",
+    "ci",
+    "cd",
+    "dx",
+    "automation",
+    "jsdelivr",
+    "github"
+  ]
 }
 
 #---------------------------
