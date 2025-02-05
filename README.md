@@ -12,6 +12,7 @@ Wire-up fragmented codes and files from various sources with a single command.
 <p>
 <p align="center">
   <a href="https://www.npmjs.com/package/loose-dependency-manager"><img src="https://img.shields.io/npm/v/loose-dependency-manager?color=729B1B&label="></a>
+  <a href="https://github.com/ldm-org/ldm/actions/workflows/test.yml"><img src="https://github.com/ldm-org/ldm/actions/workflows/test.yml/badge.svg?branch=release-please--branches--master" alt="test status"></a>
 <p>
 
 <p align="center">
