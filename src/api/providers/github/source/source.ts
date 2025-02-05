@@ -7,7 +7,7 @@ export const ownerRepoRegex = /^[a-z0-9-_.]+\/[a-z0-9-_.]+$/;
 
 export class GithubSource extends Source {
   declare public readonly provider: "github";
-  public readonly auth?: { token: string };
+  public readonly auth?: GithubSourceAuthSchema;
 
   public readonly owner: string;
   public readonly repo: string;
@@ -45,15 +45,17 @@ export class GithubSource extends Source {
   }
 }
 
+const GithubSourceAuthSchema = z.object({
+  token: z.string().optional(),
+});
+
+type GithubSourceAuthSchema = z.infer<typeof GithubSourceAuthSchema>;
+
 export const GithubSourceSchema = z.intersection(
   SourceSchema,
   z.object({
     provider: z.literal("github").optional().default("github"),
-    auth: z
-      .object({
-        token: z.string(),
-      })
-      .optional(),
+    auth: GithubSourceAuthSchema.optional(),
   }),
 );
 
