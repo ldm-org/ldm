@@ -1,15 +1,35 @@
 import yaml from "js-yaml";
+import dotenv from "dotenv";
+import merge from "lodash/merge";
+import { dirname, join } from "path";
+import { findUpSync } from "find-up";
+import { readFileOrNullSync } from "@/utils";
 import {
   ProjectSpecification,
   ProjectSpecificationSchema,
 } from "./project-specification";
 
+const WORKSPACE_ROOT = dirname(findUpSync("package.json", { cwd: __dirname })!);
+
+const envFile = join(WORKSPACE_ROOT, ".env");
+const env = merge(
+  {},
+  process.env,
+  dotenv.parse(readFileOrNullSync(envFile, "utf-8") ?? ""),
+);
+
 describe(ProjectSpecification.name, () => {
+  let subslate: typeof import("subslate").default;
   let spec: ProjectSpecification;
 
+  beforeAll(async () => {
+    subslate = (await import("subslate")).default;
+  });
+
   it("should create an instance", async () => {
+    const substituted = subslate(specification, env);
     spec = new ProjectSpecification(
-      yaml.load(specification) as ProjectSpecificationSchema,
+      yaml.load(substituted) as ProjectSpecificationSchema,
     );
     await spec.prepare();
   });
@@ -111,7 +131,8 @@ sources:
 
   describe("toJSON", () => {
     it("should return JSON object", () => {
-      expect(spec.toJSON()).toEqual(yaml.load(expected));
+      const substituted = subslate(expected, env);
+      expect(spec.toJSON()).toEqual(yaml.load(substituted));
     });
   });
 });
