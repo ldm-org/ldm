@@ -1,4 +1,4 @@
-version: "1"
+version: '1'
 dependencies:
   jquery:
     uri: jsdelivr:npm+jquery://default:^3.6.4

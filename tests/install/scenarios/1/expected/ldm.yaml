@@ -1,9 +1,13 @@
 version: "1"
 
 dependencies:
+  screen.png:
+    uri: release-please-actions:///screen.png
+    version: latest
+    destination: public/images/screen.png
   primitive.ts:
     uri: "@ts-essentials/ts-essentials:///lib/primitive/index.ts"
-    version: latest
+    version: ^9.0.0
     destination: src/types/primitive.ts
   functions:
     uri: "@ts-essentials/ts-essentials:///lib/functions"
@@ -28,6 +32,11 @@ dependencies:
     destination: public/css/pico.min.css
 
 sources:
+  release-please-actions:
+    provider: github
+    uri: google-github-actions/release-please-action
+    auth:
+      token: ${GITHUB_TOKEN}
   "@ts-essentials/ts-essentials":
     provider: github
     uri: ts-essentials/ts-essentials

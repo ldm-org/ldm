@@ -4,10 +4,10 @@ import merge from "lodash/merge";
 import { existsSync } from "fs";
 import { dirname, join } from "path";
 import { findUpSync } from "find-up";
-import { compareSync } from "dir-compare";
-import { ldm } from "@tests/command";
 import { readFileOrNullSync } from "@/utils";
+import { ldm } from "@tests/command";
 import { Scenario } from "@tests/scenario";
+import { compare } from "@tests/compare";
 import scenario1 from "./scenarios/1/scenario";
 import scenario2 from "./scenarios/2/scenario";
 import scenario3 from "./scenarios/3/scenario";
@@ -51,7 +51,7 @@ describe(name, () => {
 
       if (expected?.output && existsSync(expected.output)) {
         it('should be the same as the "expected" directory', () => {
-          expect(compareSync(project, expected.output!).same).toBe(true);
+          compare(project, expected.output!);
         });
       }
     });

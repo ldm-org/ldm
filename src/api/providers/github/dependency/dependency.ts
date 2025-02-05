@@ -67,6 +67,25 @@ export class GithubDependency extends Dependency {
       return new GithubVersion(response.data.sha);
     }
 
+    if (specifier.isLatest) {
+      const latestCommmit = await client.rest.repos
+        .listCommits({
+          owner: this.source.owner,
+          repo: this.source.repo,
+          per_page: 1,
+        })
+        .catch((error: any) =>
+          match({ error, status: error.status })
+            .with({ error: P.instanceOf(RequestError), status: 404 }, () =>
+              raise(
+                new PrintableError(`No commits found for ${this.source.uri}`),
+              ),
+            )
+            .otherwise(() => raise(error)),
+        );
+      return new GithubVersion(latestCommmit.data.at(0)!.sha);
+    }
+
     const response = await client.rest.git.listMatchingRefs({
       ref: "tags",
       owner: this.source.owner,
