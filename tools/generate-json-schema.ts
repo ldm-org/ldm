@@ -6,22 +6,42 @@ import {
   SourceSchema,
   GithubSourceSchema,
   HTTPDependencySchema,
-  DependencySchema,
   JSDelivrDependencySchema,
+  DependencySchema,
 } from "@";
 
-const ProjectSpecificationSchema = z.object({
-  version: z.string().optional(),
-  dependencies: z.record(
-    z.union([DependencySchema, HTTPDependencySchema, JSDelivrDependencySchema]),
-  ),
-  sources: z.record(z.union([SourceSchema, GithubSourceSchema])).optional(),
-  config: ConfigSchema.optional(),
-});
+function main() {
+  const ProjectSpecificationSchema = z.object({
+    version: z.string().optional(),
+    dependencies: z.record(
+      z.union([
+        DependencySchema,
+        HTTPDependencySchema,
+        JSDelivrDependencySchema,
+      ]),
+    ),
+    sources: z
+      .record(
+        z.union([
+          z.intersection(
+            SourceSchema.omit({ provider: true }),
+            z.object({
+              provider: z.enum(["github", "jsdelivr:npm", "jsdelivr:github"]),
+            }),
+          ),
+          GithubSourceSchema,
+        ]),
+      )
+      .optional(),
+    config: ConfigSchema.optional(),
+  });
 
-const schema = zodToJsonSchema(
-  ProjectSpecificationSchema,
-  "ProjectSpecificationSchema",
-);
+  const schema = zodToJsonSchema(
+    ProjectSpecificationSchema,
+    "ProjectSpecificationSchema",
+  );
 
-writeFileSync("schema.json", JSON.stringify(schema, null, 2));
+  writeFileSync("schema.json", JSON.stringify(schema, null, 2));
+}
+
+main();

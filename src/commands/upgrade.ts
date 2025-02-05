@@ -28,9 +28,12 @@ export async function upgrade(options: Options) {
 
     logger.log("");
     logger.log(`Upgrade complete 🍋`);
+
+    return 0;
   } catch (error) {
     if (error instanceof PrintableError) {
       logger.error(`\n${kleur.bold().red(error.toString())}`);
+      return 1;
     } else {
       throw error;
     }

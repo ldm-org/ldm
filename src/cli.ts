@@ -16,7 +16,7 @@ program
   .option("--debug", "Enable debug mode.")
   .option("--silent", "Suppresses all output.")
   .option("--frozen-lockfile", "Fail if lockfile needs to be updated.")
-  .action(install);
+  .action(options => install(options).then(process.exit));
 
 program
   .command("upgrade")
@@ -29,7 +29,7 @@ program
     upgrade({
       ...options,
       targets: targets.length > 0 ? targets : undefined,
-    }),
+    }).then(process.exit),
   );
 
 program.parse();
