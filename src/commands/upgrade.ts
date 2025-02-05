@@ -33,6 +33,9 @@ export async function upgrade(options: Options) {
   } catch (error) {
     if (error instanceof PrintableError) {
       logger.error(`\n${kleur.bold().red(error.toString())}`);
+      if (silent) {
+        throw error;
+      }
       return 1;
     } else {
       throw error;

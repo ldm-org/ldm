@@ -48,6 +48,9 @@
   ],
   "exclude": [
     "**/fixtures",
+    "**/scenarios/*/expected",
+    "**/scenarios/*/project",
+    "**/scenarios/*/given",
   ],
   "references": [
     {
