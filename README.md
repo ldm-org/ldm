@@ -15,7 +15,7 @@ Wire-up fragmented codes and files from various sources with a single command.
 <p>
 
 <p align="center">
- <a onclick="alert('Documentation is not ready yet. I\'ll try to write it ASAP.')" href="#">Documentation</a> | <a href="#quick-start">Getting Started</a> | <a href="#examples">Examples</a>
+ <a href="#documentation">Documentation</a> | <a href="#quick-start">Getting Started</a> | <a href="#examples">Examples</a>
 </p>
 <p align="center">
 <a href="#what-is-loose-dependency-manager">What is loose dependency manager?</a>
@@ -134,6 +134,11 @@ assuming that `ldm.yaml` is the only file in the directory.
 The example above can be summarized as following diagram.
 
 ![example](./assets/diagram.png)
+
+## Documentation
+
+Documentation is not written yet.
+I'll try my best to write it as soon as possible.
 
 ## Examples
 
