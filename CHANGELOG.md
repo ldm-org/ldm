@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.2.1...loose-dependency-manager-v1.2.2) (2025-02-05)
+
+
+### Bug Fixes
+
+* more sophisticated error handling for github ([9ea0b6e](https://github.com/ldm-org/ldm/commit/9ea0b6e88726de160f4005e0fd1205c55e156042))
+
 ## [1.2.1](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.2.0...loose-dependency-manager-v1.2.1) (2025-02-05)
 
 
