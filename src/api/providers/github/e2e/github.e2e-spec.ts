@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import merge from "lodash/merge";
 import { findUpSync } from "find-up";
 import { compareSync } from "dir-compare";
 import { basename, dirname, join } from "path";
@@ -95,8 +96,11 @@ describe(name, () => {
   });
 });
 
-const env = dotenv.parse(
-  readFileOrNullSync(join(WORKSPACE_ROOT, ".env"), "utf-8") ?? "",
+const envFile = join(WORKSPACE_ROOT, ".env");
+const env = merge(
+  {},
+  process.env,
+  dotenv.parse(readFileOrNullSync(envFile, "utf-8") ?? ""),
 );
 
 const tsEssentials = new GithubSource({
