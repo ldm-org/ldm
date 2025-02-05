@@ -1,6 +1,6 @@
 {
   "name": "loose-dependency-manager",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "license": "MIT",
   "description": "Wire-up fragmented codes and files from various sources with a single command.",
   "homepage": "https://github.com/ldm-org/ldm",
