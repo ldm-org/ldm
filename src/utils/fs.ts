@@ -11,7 +11,7 @@ export async function rmtreeSync(path: string) {
 
 export async function readFileOrNull(
   path: string,
-  encoding: "utf-8" | "utf8",
+  encoding?: "utf-8" | "utf8",
 ): Promise<string | null>;
 export async function readFileOrNull(
   path: string,
@@ -26,7 +26,7 @@ export async function readFileOrNull(
 
 export function readFileOrNullSync(
   path: string,
-  encoding: "utf-8" | "utf8",
+  encoding?: "utf-8" | "utf8",
 ): string | null;
 export function readFileOrNullSync(
   path: string,

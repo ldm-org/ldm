@@ -2,7 +2,8 @@ import dotenv from "dotenv";
 import { findUpSync } from "find-up";
 import { compareSync } from "dir-compare";
 import { basename, dirname, join } from "path";
-import { existsSync, readFileSync, rmSync } from "fs";
+import { existsSync, rmSync } from "fs";
+import { readFileOrNullSync } from "@/utils";
 import { GithubSource } from "../source";
 import { GithubDependency } from "../dependency";
 
@@ -94,7 +95,9 @@ describe(name, () => {
   });
 });
 
-const env = dotenv.parse(readFileSync(join(WORKSPACE_ROOT, ".env")));
+const env = dotenv.parse(
+  readFileOrNullSync(join(WORKSPACE_ROOT, ".env"), "utf-8") ?? "",
+);
 
 const tsEssentials = new GithubSource({
   id: "@ts-essentials/ts-essentials",
