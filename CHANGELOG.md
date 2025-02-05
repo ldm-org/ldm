@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.1](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.0.0...loose-dependency-manager-v1.0.1) (2025-02-05)
+
+
+### Bug Fixes
+
+* docs ([cc915e6](https://github.com/ldm-org/ldm/commit/cc915e65baef609922befe3ce6b82f563e52936c))
+* dotenv is not dev dependency ([976f927](https://github.com/ldm-org/ldm/commit/976f927198d1f51af50333a195f66754eead0328))
+* lockfile ([d5a6f55](https://github.com/ldm-org/ldm/commit/d5a6f558a88e230c2b95aa1ebf387e38927924fa))
+* readme ([3777862](https://github.com/ldm-org/ldm/commit/3777862dac93a64556e9d2e9e98692597818de60))
+* release please config ([cfbbe9c](https://github.com/ldm-org/ldm/commit/cfbbe9c9db851bfcfa276c6d23f36b73fc953e2d))
+
 ## [1.0.0](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v0.0.1...loose-dependency-manager-v1.0.0) (2025-02-05)
 
 
