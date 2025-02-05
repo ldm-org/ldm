@@ -61,7 +61,7 @@ describe(name, () => {
   cases.forEach(({ version, dirents, expected }) => {
     describe(version, () => {
       dirents.forEach(dirent => {
-        it(`should create ${dirent}`, { timeout: 30000 }, async () => {
+        it(`should create ${dirent}`, { timeout: 60000 }, async () => {
           const destination = join(root, version, basename(dirent));
           const dependency = new GithubDependency(
             {
