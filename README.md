@@ -51,6 +51,8 @@ npm install -g loose-dependency-manager
 
 ## Quick Start
 
+### Write a dependency specification file
+
 You write a dependency specification file named `ldm.yaml`. 
 
 > [!IMPORTANT]
@@ -102,6 +104,26 @@ config:
   envFile: .env
   deleteFilesOnRemove: true
 ```
+
+#### YAML Validation for VSCode
+
+For better editing experience, 
+YAML validation is supported thanks to JSON schema and [YAML VSCode Extension (by RedHat)](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml). 
+
+To enable YAML validation,
+
+- Install [YAML VSCode Extension (by RedHat)](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+- Add the following configuration to your `.vscode/settings.json` file.
+  ```json
+  {
+    "yaml.schemas": {
+      "https://raw.githubusercontent.com/ldm-org/ldm/refs/heads/master/schema.json": "**/ldm.yaml"
+    }
+  }
+  ```
+
+
+### Install dependencies
 
 Then in terminal, run the following command.
 
