@@ -1,0 +1,53 @@
+version: '1'
+dependencies:
+  functions:
+    uri: github+@ts-essentials/ts-essentials:///lib/functions:^9.0.0
+    version: v9.4.2
+    destinations:
+      - src/types/functions
+    artifacts:
+      assert/README.md:
+        hash: 43de1b7bbc0d239c6bd3247ec570ee635c39e67acf2b9924159cd0913672d9fa
+      assert/index.ts:
+        hash: 4136a27e1233e6c50ac6b35f7ee2986a28ea49ae96c28dccbb00d1823ee663a6
+      create-factory-with-constraint/README.md:
+        hash: 4c0bb1d3e52219e116fc906a11fcc16ee57d8b637c1b51d4afb1f1717efcc1ff
+      create-factory-with-constraint/index.ts:
+        hash: c714c46e50de44b76907d88842a0be1f275f901dea78de626f4c017c5bb794e9
+      is-exact/README.md:
+        hash: 968e9134db6f76eebd0e53a3152a82ffcde689b3506840cb7c30c23b74ac12dd
+      is-exact/index.ts:
+        hash: eab26e17c6f5357f56a0601a55557cfbcf543108e0d311ac39cb68e5d14f479d
+      noop/README.md:
+        hash: eba36c357a5e107563383320a8e3969b3cd1c5cff947691a704a0f55f62f4f19
+      noop/index.ts:
+        hash: f2d5db7a7eae37eb42edf454be60ae5cbe39ed5490828c4701081adf765a6f6d
+      unreachable-case-error/README.md:
+        hash: 4ef7f2a2df7ac7be20567bd1c8185ffbba3f845159f74e3058f4fc50b2c9c690
+      unreachable-case-error/index.ts:
+        hash: 226e4126b43072c60f8dece48f8b20e66397002fc3d354e7540a7c8863f0dfd3
+  jquery:
+    uri: jsdelivr:npm+jquery://default:^3.6.4
+    version: 3.7.1
+    destinations:
+      - public/js/core.min.js
+      - src/core.min.js
+    artifacts:
+      .:
+        hash: fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a
+  primitive.ts:
+    uri: github+@ts-essentials/ts-essentials:///lib/primitive/index.ts:^9.0.0
+    version: v9.4.2
+    destinations:
+      - src/types/primitive.ts
+    artifacts:
+      .:
+        hash: a3f10b207ac34092603a802aa6d932d22372d571d4649c1d48a074b71da95eac
+  reset.css:
+    uri: http+https://meyerweb.com/eric/tools/css/reset/reset200802.css:latest
+    version: latest
+    destinations:
+      - public/css/reset.css
+    artifacts:
+      .:
+        hash: 02199a3a74aa01644afe138e531c68a97bd44616553748399d12bd25a19d3ba3

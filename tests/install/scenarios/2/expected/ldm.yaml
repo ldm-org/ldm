@@ -1,0 +1,37 @@
+version: "1"
+
+dependencies:
+  primitive.ts:
+    uri: "@ts-essentials/ts-essentials:///lib/primitive/index.ts"
+    version: ^9.0.0
+    destination: src/types/primitive.ts
+  functions:
+    uri: "@ts-essentials/ts-essentials:///lib/functions"
+    version: ^9.0.0
+    destination: src/types/functions
+  jquery:
+    uri: jquery://default
+    version: ^3.6.4
+    destinations:
+      - src/core.min.js
+      - public/js/core.min.js
+  reset.css:
+    uri: https://meyerweb.com/eric/tools/css/reset/reset200802.css
+    destination: public/css/reset.css
+    method: GET
+    headers:
+      - key: Content-Type
+        value: text/css
+
+sources:
+  "@ts-essentials/ts-essentials":
+    provider: github
+    uri: ts-essentials/ts-essentials
+    auth:
+      token: ${GITHUB_TOKEN}
+  jquery:
+    provider: jsdelivr:npm
+    uri: jquery
+
+config:
+  deleteFilesOnRemove: true

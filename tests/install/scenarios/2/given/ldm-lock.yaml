@@ -1,0 +1,35 @@
+version: '1'
+dependencies:
+  jquery:
+    uri: jsdelivr:npm+jquery://default:^3.6.4
+    version: 3.7.1
+    destinations:
+      - public/js/core.min.js
+      - src/core.min.js
+    artifacts:
+      .:
+        hash: fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a
+  pico.css:
+    uri: jsdelivr:npm+@picocss/pico:///css/pico.min.css:^2.0.0
+    version: 2.0.6
+    destinations:
+      - public/css/pico.min.css
+    artifacts:
+      .:
+        hash: dd5fd5591afd81ee21dcc117ad85c014dc3f1f19dc2d7b7d101ea0acc29274c2
+  primitive.ts:
+    uri: github+@ts-essentials/ts-essentials:///lib/primitive/index.ts:latest
+    version: v10.0.4
+    destinations:
+      - src/types/primitive.ts
+    artifacts:
+      .:
+        hash: a3f10b207ac34092603a802aa6d932d22372d571d4649c1d48a074b71da95eac
+  reset.css:
+    uri: http+https://meyerweb.com/eric/tools/css/reset/reset200802.css:latest
+    version: latest
+    destinations:
+      - public/css/reset.css
+    artifacts:
+      .:
+        hash: 02199a3a74aa01644afe138e531c68a97bd44616553748399d12bd25a19d3ba3
