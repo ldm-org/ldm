@@ -11,7 +11,8 @@ resource "github_repository" "ldm" {
   has_discussions = false
   has_wiki        = false
 
-  description = "Wire-up fragmented codes and files from various sources with a single command."
+  homepage_url = "https://www.npmjs.com/package/loose-dependency-manager"
+  description  = "Wire-up fragmented codes and files from various sources with a single command."
   topics = [
     "dependency",
     "manager",
