@@ -113,7 +113,7 @@ export class Updating {
     });
     operation.on("complete", () => {
       installing(
-        `  ${kleur.green("•")} Updating ${kleur.cyan(id)} (${kleur.green(targetVersion)})`,
+        `  ${kleur.green("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.green(targetVersion)})`,
       );
       installing.done();
     });
