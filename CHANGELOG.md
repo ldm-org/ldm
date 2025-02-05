@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.2.0...loose-dependency-manager-v1.2.1) (2025-02-05)
+
+
+### Bug Fixes
+
+* owner repo regex ([f9e604e](https://github.com/ldm-org/ldm/commit/f9e604e9328d06f5295db4239db1f8e144dd772b))
+* package name regex ([0c1004d](https://github.com/ldm-org/ldm/commit/0c1004d2a94c7d09229eba39604b1b018344864a))
+
 ## [1.2.0](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.1.0...loose-dependency-manager-v1.2.0) (2025-02-05)
 
 
