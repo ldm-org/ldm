@@ -54,7 +54,7 @@ type GithubSourceAuthSchema = z.infer<typeof GithubSourceAuthSchema>;
 export const GithubSourceSchema = z.intersection(
   SourceSchema,
   z.object({
-    provider: z.literal("github").default("github"),
+    provider: z.literal("github"),
     auth: GithubSourceAuthSchema.optional(),
   }),
 );

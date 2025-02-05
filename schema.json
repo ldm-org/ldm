@@ -12,121 +12,16 @@
           "additionalProperties": {
             "anyOf": [
               {
-                "allOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "uri": {
-                        "type": "string"
-                      },
-                      "version": {
-                        "type": "string",
-                        "default": "latest"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "uri"
-                    ]
-                  },
-                  {
-                    "anyOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "destination": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "destination"
-                        ],
-                        "additionalProperties": false
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "destinations": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "required": [
-                          "destinations"
-                        ],
-                        "additionalProperties": false
-                      }
-                    ]
-                  }
-                ]
+                "$ref": "#/definitions/HTTPDependencySchema"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/definitions/ProjectSpecificationSchema/properties/dependencies/additionalProperties/anyOf/0"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "method": {
-                        "type": "string",
-                        "enum": [
-                          "GET",
-                          "POST",
-                          "PUT",
-                          "DELETE",
-                          "PATCH"
-                        ],
-                        "default": "GET"
-                      },
-                      "headers": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "key": {
-                              "type": "string"
-                            },
-                            "value": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "key",
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      },
-                      "params": {
-                        "type": "object",
-                        "additionalProperties": {}
-                      },
-                      "data": {}
-                    }
-                  }
-                ]
+                "$ref": "#/definitions/GithubDependencySchema"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/definitions/ProjectSpecificationSchema/properties/dependencies/additionalProperties/anyOf/0"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "minify": {
-                        "type": "boolean",
-                        "default": false
-                      }
-                    }
-                  }
-                ]
+                "$ref": "#/definitions/JSDelivrNPMDependencySchema"
+              },
+              {
+                "$ref": "#/definitions/JSDelivrGithubDependencySchema"
               }
             ]
           }
@@ -134,52 +29,15 @@
         "sources": {
           "type": "object",
           "additionalProperties": {
-            "anyOf": [
+            "oneOf": [
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "uri": {
-                    "type": "string"
-                  },
-                  "provider": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "uri",
-                  "provider"
-                ],
-                "additionalProperties": false
+                "$ref": "#/definitions/GithubSourceSchema"
               },
               {
-                "allOf": [
-                  {
-                    "$ref": "#/definitions/ProjectSpecificationSchema/properties/sources/additionalProperties/anyOf/0"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "provider": {
-                        "type": "string",
-                        "const": "github",
-                        "default": "github"
-                      },
-                      "auth": {
-                        "type": "object",
-                        "properties": {
-                          "token": {
-                            "type": "string"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    }
-                  }
-                ]
+                "$ref": "#/definitions/JSDelivrNPMSourceSchema"
+              },
+              {
+                "$ref": "#/definitions/JSDelivrGithubSourceSchema"
               }
             ]
           }
@@ -203,6 +61,326 @@
         "dependencies"
       ],
       "additionalProperties": false
+    },
+    "GithubSourceSchema": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "string"
+            },
+            "provider": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "uri",
+            "provider"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "type": "string",
+              "const": "github"
+            },
+            "auth": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "provider"
+          ]
+        }
+      ]
+    },
+    "JSDelivrNPMSourceSchema": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "string"
+            },
+            "provider": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "uri",
+            "provider"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "type": "string",
+              "const": "jsdelivr:npm"
+            }
+          },
+          "required": [
+            "provider"
+          ]
+        }
+      ]
+    },
+    "JSDelivrGithubSourceSchema": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "string"
+            },
+            "provider": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "uri",
+            "provider"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "type": "string",
+              "const": "jsdelivr:github"
+            }
+          },
+          "required": [
+            "provider"
+          ]
+        }
+      ]
+    },
+    "HTTPDependencySchema": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string",
+              "default": "latest"
+            }
+          },
+          "required": [
+            "uri"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "destination": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "destination"
+              ],
+              "additionalProperties": true
+            },
+            {
+              "type": "object",
+              "properties": {
+                "destinations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "destinations"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        }
+      ]
+    },
+    "GithubDependencySchema": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string",
+              "default": "latest"
+            }
+          },
+          "required": [
+            "uri"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "destination": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "destination"
+              ],
+              "additionalProperties": true
+            },
+            {
+              "type": "object",
+              "properties": {
+                "destinations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "destinations"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        }
+      ]
+    },
+    "JSDelivrNPMDependencySchema": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string",
+              "default": "latest"
+            }
+          },
+          "required": [
+            "uri"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "destination": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "destination"
+              ],
+              "additionalProperties": true
+            },
+            {
+              "type": "object",
+              "properties": {
+                "destinations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "destinations"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "minify": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        }
+      ]
+    },
+    "JSDelivrGithubDependencySchema": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string",
+              "default": "latest"
+            }
+          },
+          "required": [
+            "uri"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "destination": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "destination"
+              ],
+              "additionalProperties": true
+            },
+            {
+              "type": "object",
+              "properties": {
+                "destinations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "destinations"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "minify": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        }
+      ]
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#"
