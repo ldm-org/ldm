@@ -41,8 +41,8 @@ Currently, it supports the following sources:
 | --- | --- | --- | --- |
 | HTTP(S) | ❌ | only files | HTTP(S) URL |
 | [GitHub](https://github.com/) | ✅ | files & directories | `<github-source-id>:///path/to/file` |
-| [JSDelivr (npm)](https://www.jsdelivr.com/) | ✅ | files & directories | `<jsdelivr-source-id>://default` or `<jsdelivr-source-id>:///path/to/file` |
-| [JSDelivr (github)](https://www.jsdelivr.com/?docs=gh) | ✅ | files & directories | `<jsdelivr-source-id>:///path/to/file` |
+| [JSDelivr (npm)](https://www.jsdelivr.com/) | ✅ | files & directories | `<jsdelivr-npm-source-id>://default` or `<jsdelivr-npm-source-id>:///path/to/file` |
+| [JSDelivr (github)](https://www.jsdelivr.com/?docs=gh) | ✅ | files & directories | `<jsdelivr-github-source-id>:///path/to/file` |
 
 ## Installation
 
