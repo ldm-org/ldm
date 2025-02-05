@@ -158,4 +158,4 @@ See [Contributing Guide](./.github/CONTRIBUTING.md)
 
 ## License
 
-[MIT](./LICENSE) License © 2021-Present [Joseph Hwang](https://github.com/01Joseph-Hwang10)
+[MIT](./LICENSE) License © 2025-Present [Joseph Hwang](https://github.com/01Joseph-Hwang10)
