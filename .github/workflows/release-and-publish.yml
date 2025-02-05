@@ -39,6 +39,6 @@ jobs:
 
       # Build and publish packages
       - run: pnpm run build
-      - run: pnpm publish --no-git-checks || echo 'Already published'
+      - run: pnpm publish --no-git-checks
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
