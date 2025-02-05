@@ -40,9 +40,9 @@ Currently, it supports the following sources:
 | Provider | Versioning Support | Can Download | URI Format |
 | --- | --- | --- | --- |
 | HTTP(S) | ❌ | only files | HTTP(S) URL |
-| GitHub | ✅ | files & directories | `<github-source-id>:///path/to/file` |
-| jsdelivr (npm) | ✅ | files & directories | `<jsdelivr-source-id>://default` or `<jsdelivr-source-id>:///path/to/file` |
-| jsdelivr (github) | ✅ | files & directories | `<jsdelivr-source-id>:///path/to/file` |
+| [GitHub](https://github.com/) | ✅ | files & directories | `<github-source-id>:///path/to/file` |
+| [JSDelivr (npm)](https://www.jsdelivr.com/) | ✅ | files & directories | `<jsdelivr-source-id>://default` or `<jsdelivr-source-id>:///path/to/file` |
+| [JSDelivr (github)](https://www.jsdelivr.com/?docs=gh) | ✅ | files & directories | `<jsdelivr-source-id>:///path/to/file` |
 
 ## Installation
 
