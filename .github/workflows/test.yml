@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
-      - run: --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
       - run: pnpm test
       - run: pnpm test:e2e
         env:
