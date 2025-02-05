@@ -170,6 +170,9 @@ export class Installer {
       section.done();
       throw error;
     }
+    if (installs.length + updates.length + removals.length === 0) {
+      this.logger.log("Everything is up to date.");
+    }
 
     // Clean & Format lockinfo
     lockinfo.dependencies = new Map(
