@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://vitest.dev">
-<img src="https://raw.githubusercontent.com/ldm-org/ldm/refs/heads/master/assets/diagram.png" height="150">
+<img src="https://raw.githubusercontent.com/ldm-org/ldm/refs/heads/master/assets/logo.png" height="150">
 </a>
 </p>
 
