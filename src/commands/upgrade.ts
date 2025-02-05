@@ -27,7 +27,7 @@ export async function upgrade(options: Options) {
     await config.write();
 
     logger.log("");
-    logger.log(`${kleur.bold().white("Upgrade")} complete`);
+    logger.log(`Upgrade complete 🍋`);
   } catch (error) {
     if (error instanceof PrintableError) {
       logger.error(`\n${kleur.bold().red(error.toString())}`);

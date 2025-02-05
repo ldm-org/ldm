@@ -1,5 +1,5 @@
 {
-  "name": "ldm",
+  "name": "loose-dependency-manager",
   "version": "0.0.1",
   "license": "MIT",
   "description": "Wire-up fragmented codes and files from various sources with a single command.",

@@ -27,7 +27,7 @@ export async function install(options: Options) {
     await config.write();
 
     logger.log("");
-    logger.log(`${kleur.bold().white("Installation")} complete`);
+    logger.log(`Installation complete 🍋`);
   } catch (error) {
     if (error instanceof PrintableError) {
       logger.error(`\n${kleur.bold().red(error.toString())}`);
