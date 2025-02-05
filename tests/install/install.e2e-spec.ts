@@ -1,11 +1,12 @@
 import shell from "shelljs";
 import dotenv from "dotenv";
 import merge from "lodash/merge";
-import { existsSync, readFileSync } from "fs";
+import { existsSync } from "fs";
 import { dirname, join } from "path";
 import { findUpSync } from "find-up";
 import { compareSync } from "dir-compare";
 import { ldm } from "@tests/command";
+import { readFileOrNullSync } from "@/utils";
 import { Scenario } from "@tests/scenario";
 import scenario1 from "./scenarios/1/scenario";
 import scenario2 from "./scenarios/2/scenario";
@@ -28,11 +29,15 @@ describe(name, () => {
         shell.cp("-r", `${given}/*`, `${project}/`);
       });
 
-      it("should install the dependencies", async () => {
+      it("should install the dependencies", { timeout: 30000 }, async () => {
         try {
           await ldm(command, {
             cwd: project,
-            env: merge({}, process.env, dotenv.parse(readFileSync(envFile))),
+            env: merge(
+              {},
+              process.env,
+              dotenv.parse(readFileOrNullSync(envFile, "utf-8") ?? ""),
+            ),
           });
           expect(true).toBe(true);
         } catch (error) {

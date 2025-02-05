@@ -1,8 +1,7 @@
 import yaml from "js-yaml";
 import dotenv from "dotenv";
-import { readFileSync } from "fs";
 import { writeFile } from "fs/promises";
-import { raise } from "@/utils";
+import { raise, readFileOrNullSync } from "@/utils";
 import { ProjectSpecification } from "./models/project-specification";
 import { LockInfo } from "./models/lock/lockinfo";
 import { PrintableError } from "./error";
@@ -26,7 +25,7 @@ export class Config {
     // Read environment variables and hydrate the configuration
     //
     const specRaw =
-      readOrNull(LDM_SPEC_PATH) ??
+      readFileOrNullSync(LDM_SPEC_PATH, "utf-8") ??
       raise(new PrintableError(`Cannot find ${LDM_SPEC_PATH}`));
     const spec = yaml.load(specRaw) as any;
 
@@ -41,7 +40,8 @@ export class Config {
     //
     const lockinfo = new LockInfo(
       yaml.load(
-        readOrNull(LDM_LOCK_PATH) ?? 'version: "1"\ndependencies: {}',
+        readFileOrNullSync(LDM_LOCK_PATH, "utf-8") ??
+          'version: "1"\ndependencies: {}',
       ) as any,
     );
 
@@ -50,14 +50,6 @@ export class Config {
       spec.config?.deleteFilesOnRemove ?? false;
 
     return new Config(specification, lockinfo);
-
-    function readOrNull(path: string) {
-      try {
-        return readFileSync(path, "utf-8");
-      } catch {
-        return null;
-      }
-    }
   }
 
   constructor(
