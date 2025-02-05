@@ -3,6 +3,7 @@
   "include": [
     "src",
     "tests",
+    "tools",
     "vite*.ts",
   ],
 }

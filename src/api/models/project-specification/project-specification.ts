@@ -170,12 +170,12 @@ export class ProjectSpecification
   }
 }
 
-const ConfigSchema = z.object({
+export const ConfigSchema = z.object({
   envFile: z.string().optional().default(".env"),
   deleteFilesOnRemove: z.boolean().optional().default(false),
 });
 
-type ConfigSchema = z.infer<typeof ConfigSchema>;
+export type ConfigSchema = z.infer<typeof ConfigSchema>;
 
 export const ProjectSpecificationSchema = z.object({
   version: z.string().optional(),

@@ -22,7 +22,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "test": "vitest --config vitest.config.ts",
-    "test:e2e": "vitest --config vitest.config.e2e.ts"
+    "test:e2e": "vitest --config vitest.config.e2e.ts",
+    "generate:jsonschema": "vite-node tools/generate-json-schema.ts"
   },
   "dependencies": {
     "@hey-api/client-axios": "^0.6.0",
@@ -75,6 +76,7 @@
     "vite-node": "^3.0.4",
     "vite-plugin-top-level-await": "^1.4.1",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^3.0.4"
+    "vitest": "^3.0.4",
+    "zod-to-json-schema": "^3.24.1"
   }
 }

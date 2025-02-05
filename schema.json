@@ -1,0 +1,209 @@
+{
+  "$ref": "#/definitions/ProjectSpecificationSchema",
+  "definitions": {
+    "ProjectSpecificationSchema": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "dependencies": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "uri": {
+                        "type": "string"
+                      },
+                      "version": {
+                        "type": "string",
+                        "default": "latest"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "uri"
+                    ]
+                  },
+                  {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "destination": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "destination"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "destinations": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "destinations"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/definitions/ProjectSpecificationSchema/properties/dependencies/additionalProperties/anyOf/0"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "GET",
+                          "POST",
+                          "PUT",
+                          "DELETE",
+                          "PATCH"
+                        ],
+                        "default": "GET"
+                      },
+                      "headers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "value"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "params": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      },
+                      "data": {}
+                    }
+                  }
+                ]
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/definitions/ProjectSpecificationSchema/properties/dependencies/additionalProperties/anyOf/0"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "minify": {
+                        "type": "boolean",
+                        "default": false
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "sources": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "uri": {
+                    "type": "string"
+                  },
+                  "provider": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "uri",
+                  "provider"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/definitions/ProjectSpecificationSchema/properties/sources/additionalProperties/anyOf/0"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "provider": {
+                        "type": "string",
+                        "const": "github",
+                        "default": "github"
+                      },
+                      "auth": {
+                        "type": "object",
+                        "properties": {
+                          "token": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "config": {
+          "type": "object",
+          "properties": {
+            "envFile": {
+              "type": "string",
+              "default": ".env"
+            },
+            "deleteFilesOnRemove": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "dependencies"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
