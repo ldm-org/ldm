@@ -16,3 +16,9 @@ variable "gh_pat" {
     This is used to authenticate with the GitHub API.
   EOT
 }
+
+variable "npm_token" {
+  type        = string
+  sensitive   = true
+  description = "Variable for NPM token for publishing packages."
+}

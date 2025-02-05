@@ -32,3 +32,9 @@ resource "github_actions_secret" "gh_pat" {
   secret_name     = "GH_PAT"
   plaintext_value = var.gh_pat
 }
+
+resource "github_actions_secret" "npm_token" {
+  repository      = github_repository.ldm.name
+  secret_name     = "NPM_TOKEN"
+  plaintext_value = var.npm_token
+}
