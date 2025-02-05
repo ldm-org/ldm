@@ -3,7 +3,7 @@ import { Octokit } from "octokit";
 import { JSONSerializable } from "@/api/json";
 import { Source, SourceSchema } from "@/api/models/source";
 
-export const ownerRepoRegex = /^[a-z0-9-_.]+\/[a-z0-9-_.]+$/;
+export const ownerRepoRegex = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/;
 
 export class GithubSource extends Source {
   declare public readonly provider: "github";
