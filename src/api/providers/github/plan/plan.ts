@@ -1,3 +1,6 @@
+import { P } from "ts-pattern";
+import { RequestError } from "octokit";
+import { Catch, PrintableError } from "@/api/error";
 import {
   ArtifactDownloader,
   DownloadedArtifact,
@@ -22,6 +25,23 @@ export class GithubArtifactDownloader extends ArtifactDownloader {
     this.source = source;
   }
 
+  @Catch([
+    [
+      { error: P.instanceOf(RequestError), status: 401 },
+      (self: GithubArtifactDownloader) =>
+        new PrintableError(
+          `Invalid GitHub token provided for source ${self.source.uri}`,
+        ),
+    ],
+    [
+      { error: P.instanceOf(RequestError), status: 404 },
+      (self: GithubArtifactDownloader) =>
+        new PrintableError(
+          `Repository ${self.source.uri} not found or is private. ` +
+            `Please check the repository URL and make sure the personal access token has access to the repository.`,
+        ),
+    ],
+  ])
   async download(): Promise<DownloadedArtifact> {
     const client = this.source.getClient();
     const { owner, repo } = this.source;

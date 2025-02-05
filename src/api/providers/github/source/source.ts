@@ -1,7 +1,10 @@
 import z from "zod";
-import { Octokit } from "octokit";
+import { Octokit, RequestError } from "octokit";
 import { JSONSerializable } from "@/api/json";
 import { Source, SourceSchema } from "@/api/models/source";
+import { match, P } from "ts-pattern";
+import { raise } from "@/utils";
+import { PrintableError } from "@/api/error";
 
 export const ownerRepoRegex = /^[a-zA-Z0-9-_.]+\/[a-zA-Z0-9-_.]+$/;
 
@@ -30,6 +33,20 @@ export class GithubSource extends Source {
     this.client = new Octokit({
       auth: this.auth?.token,
     });
+  }
+
+  async prepare() {
+    await this.client.request("GET /octocat").catch((error: any) =>
+      match({ error, status: error.status })
+        .with({ error: P.instanceOf(RequestError), status: 401 }, () =>
+          raise(
+            new PrintableError(
+              `Invalid GitHub token provided for source ${this.uri}`,
+            ),
+          ),
+        )
+        .otherwise(error => raise(error)),
+    );
   }
 
   getClient(): Octokit {

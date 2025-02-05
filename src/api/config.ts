@@ -34,6 +34,7 @@ export class Config {
 
     const specCompiled = yaml.load(subslate(specRaw, process.env)) as any;
     const specification = new ProjectSpecification(specCompiled);
+    await specification.prepare();
 
     //
     // Read the lock file

@@ -144,6 +144,15 @@ export class ProjectSpecification
     }
   }
 
+  async prepare() {
+    await Promise.all(
+      this.sources
+        .values()
+        .toArray()
+        .map(s => s.prepare()),
+    );
+  }
+
   @JSONSerializable()
   toJSON() {
     return {

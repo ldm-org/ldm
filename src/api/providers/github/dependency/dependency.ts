@@ -1,16 +1,16 @@
 import "core-js/actual/array/from-async";
 import semver from "semver";
 import { join } from "path";
-import { PrintableError } from "@/api/error";
+import { match, P } from "ts-pattern";
+import { RequestError } from "octokit";
+import { raise } from "@/utils";
+import { Catch, PrintableError } from "@/api/error";
 import { Dependency } from "@/api/models/dependency/dependency";
 import { Plan } from "@/api/models/dependency/plan";
 import { GithubSource } from "../source";
 import { GithubArtifactDownloader } from "../plan";
 import { GithubVersionSpecifier, GithubVersion } from "../version";
 import { GithubTree, GithubTreeNode, isGithubTreeNode } from "./types";
-import { match, P } from "ts-pattern";
-import { RequestError } from "octokit";
-import { raise } from "@/utils";
 
 export class GithubDependency extends Dependency {
   declare public readonly source: GithubSource;
@@ -33,6 +33,23 @@ export class GithubDependency extends Dependency {
     });
   }
 
+  @Catch([
+    [
+      { error: P.instanceOf(RequestError), status: 401 },
+      (self: GithubDependency) =>
+        new PrintableError(
+          `Invalid GitHub token provided for source ${self.source.uri}`,
+        ),
+    ],
+    [
+      { error: P.instanceOf(RequestError), status: 404 },
+      (self: GithubDependency) =>
+        new PrintableError(
+          `Repository ${self.source.uri} not found or is private. ` +
+            `Please check the repository URL and make sure the personal access token has access to the repository.`,
+        ),
+    ],
+  ])
   async getLatestVersion(specifier?: GithubVersionSpecifier | string) {
     if (typeof specifier === "string") {
       specifier = new GithubVersionSpecifier({
@@ -55,7 +72,7 @@ export class GithubDependency extends Dependency {
           repo: this.source.repo,
           ref: specifier.toString(),
         })
-        .catch((error: any) =>
+        .catch((error: RequestError) =>
           match({ error, status: error.status })
             .with({ error: P.instanceOf(RequestError), status: 404 }, () =>
               raise(
@@ -74,7 +91,7 @@ export class GithubDependency extends Dependency {
           repo: this.source.repo,
           per_page: 1,
         })
-        .catch((error: any) =>
+        .catch((error: RequestError) =>
           match({ error, status: error.status })
             .with({ error: P.instanceOf(RequestError), status: 404 }, () =>
               raise(

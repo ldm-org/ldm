@@ -7,10 +7,11 @@ import {
 describe(ProjectSpecification.name, () => {
   let spec: ProjectSpecification;
 
-  it("should create an instance", () => {
+  it("should create an instance", async () => {
     spec = new ProjectSpecification(
       yaml.load(specification) as ProjectSpecificationSchema,
     );
+    await spec.prepare();
   });
 
   it("should not create instance if there's duplicate dependencies", () => {

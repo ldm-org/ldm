@@ -14,6 +14,8 @@ export class Source implements JSONSerializable<SourceSchema> {
     Object.assign(this, properties);
   }
 
+  prepare(): void | Promise<void> {}
+
   @JSONSerializable()
   toJSON() {
     return {
