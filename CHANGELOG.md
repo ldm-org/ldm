@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.0.1...loose-dependency-manager-v1.1.0) (2025-02-05)
+
+
+### Features
+
+* add json schema ([45d3bda](https://github.com/ldm-org/ldm/commit/45d3bdae0e6ccd6c7b316a777d4b65f43971ebbe))
+
+
+### Bug Fixes
+
+* add exit code for commands ([9e1d2af](https://github.com/ldm-org/ldm/commit/9e1d2afd167a8ecef06e06949334818666516607))
+* throws error if silent flag is given ([a92a5d5](https://github.com/ldm-org/ldm/commit/a92a5d5513219635dd7c940c4055adbd15782599))
+
 ## [1.0.1](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.0.0...loose-dependency-manager-v1.0.1) (2025-02-05)
 
 
