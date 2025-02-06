@@ -3,11 +3,13 @@ import z from "zod";
 import { pipe } from "fp-ts/lib/function";
 import { map } from "fp-ts/lib/Array";
 import merge from "lodash/merge";
+import { match, P } from "ts-pattern";
 import { keyexclude } from "@/utils";
 import { JSONSerializable } from "@/api/json";
 import { PrintableError } from "@/api/error";
 import { LockedArtifact } from "../artifact";
 import { Version, VersionSpecifier } from "../../version";
+import { CommitSha, GithubVersion } from "@/api/providers";
 
 export class DependencyLock implements JSONSerializable<DependencyLockSchema> {
   public readonly id: string;
@@ -47,7 +49,9 @@ export class DependencyLock implements JSONSerializable<DependencyLockSchema> {
     this.id = parsed.id;
     this.uri = parsed.uri;
     this.url = parsed.url;
-    this.version = new Version(parsed.version);
+    this.version = match(parsed.version)
+      .with(P.string.regex(CommitSha.regex), sha => new GithubVersion(sha))
+      .otherwise(version => new Version(version));
     this.artifacts = pipe(
       Object.entries(parsed.artifacts),
       map(
