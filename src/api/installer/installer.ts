@@ -16,6 +16,7 @@ import { ArtifactTree } from "./artifact-tree";
 import { PrintableError } from "../error";
 import { DependencyLock } from "../models/lock/dependency";
 import { Installing, Removing, Resolving, Updating } from "./logging";
+import { not } from "fp-ts/lib/Predicate";
 
 export class Installer {
   protected readonly logger: Logger;
@@ -137,9 +138,14 @@ export class Installer {
       })
       .execute();
 
-    const installs = operations.filter(o => o instanceof InstallOperation);
-    const updates = operations.filter(o => o instanceof UpdateOperation);
-    const removals = operations.filter(o => o instanceof RemoveOperation);
+    const isInstall = (o: Operation) => o instanceof InstallOperation;
+    const isUpdate = (o: Operation) => o instanceof UpdateOperation;
+    const isRemove = (o: Operation) => o instanceof RemoveOperation;
+
+    const installs = operations.filter(isInstall);
+    const updates = operations.filter(isUpdate);
+    const removals = operations.filter(isRemove);
+
     this.logger.log("");
     this.logger.log(
       `${kleur.bold().white("Dependency operations")}: ` +
@@ -165,7 +171,8 @@ export class Installer {
 
     // Execute all operations
     try {
-      await Promise.all(operations.map(operation => operation.execute()));
+      await Promise.all(operations.filter(isRemove).map(o => o.execute())); // Removal goes first
+      await Promise.all(operations.filter(not(isRemove)).map(o => o.execute())); // Rest of the operations go next
     } catch (error) {
       section.done();
       throw error;
