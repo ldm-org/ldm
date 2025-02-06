@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.3.0...loose-dependency-manager-v1.3.1) (2025-02-06)
+
+
+### Bug Fixes
+
+* short form of commit sha at update logging ([25960eb](https://github.com/ldm-org/ldm/commit/25960eba000451675fa87994f42327bda1882cc0))
+
 ## [1.3.0](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.2.3...loose-dependency-manager-v1.3.0) (2025-02-06)
 
 
