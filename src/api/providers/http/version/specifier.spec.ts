@@ -12,12 +12,9 @@ describe(HTTPVersionSpecifier.name, () => {
   });
 
   describe("test", () => {
-    it("should return true for latest", () => {
+    it("should return true for any value", () => {
       expect(version.test("latest")).toBe(true);
-    });
-
-    it("should return false for other versions", () => {
-      expect(version.test("1.0.0")).toBe(false);
+      expect(version.test("1.0.0")).toBe(true);
     });
   });
 });

@@ -25,10 +25,14 @@ export class VersionSpecifier {
   constructor(protected readonly specifier: string) {}
 
   test(version: string | Version): boolean {
-    if (this.semver) {
+    if (this.isSemver) {
       // If the specifier is a semver range,
       // use the semver library to test the version.
-      return this.semver.test(version.toString());
+      return this.semver!.test(version.toString());
+    } else if (this.isLatest) {
+      // If the specifier is "latest",
+      // always return true.
+      return true;
     } else {
       // Otherwise, do a simple string comparison.
       return this.specifier === version.toString();
