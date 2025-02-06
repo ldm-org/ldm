@@ -102,12 +102,12 @@ export class Updating {
 
     operation.on("start", () => {
       installing(
-        `  ${kleur.cyan("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.green(targetVersion)})`,
+        `  ${kleur.cyan("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.bold().white(targetVersion)})`,
       );
     });
     operation.on("progress", progress => {
       installing(
-        `  ${kleur.cyan("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.green(targetVersion)})` +
+        `  ${kleur.cyan("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.bold().white(targetVersion)})` +
           `: ${kleur.blue("Downloading...")} ${kleur.bold().white((progress * 100).toFixed(0).concat("%"))}`,
       );
     });
@@ -119,7 +119,7 @@ export class Updating {
     });
     operation.on("fail", () => {
       installing(
-        `  ${kleur.red("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.green(targetVersion)})` +
+        `  ${kleur.red("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.bold().white(targetVersion)})` +
           `: ${kleur.bold().red("Fail")}`,
       );
       installing.done();
