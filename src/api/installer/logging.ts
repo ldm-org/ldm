@@ -58,34 +58,34 @@ export class Installing {
   constructor(protected readonly updatable: LogUpdate) {}
 
   watch(operation: InstallOperation) {
-    const installing = this.updatable;
+    const render = this.updatable;
 
     const id = operation.spec.id;
     const version = operation.lock.version.toString("clean");
 
     operation.on("start", () => {
-      installing(
+      render(
         `  ${kleur.cyan("•")} Installing ${kleur.cyan(id)} (${kleur.bold().white(version)})`,
       );
     });
     operation.on("progress", progress => {
-      installing(
+      render(
         `  ${kleur.cyan("•")} Installing ${kleur.cyan(id)} (${kleur.bold().white(version)})` +
           `: ${kleur.blue("Downloading...")} ${kleur.bold().white((progress * 100).toFixed(0).concat("%"))}`,
       );
     });
     operation.on("complete", () => {
-      installing(
+      render(
         `  ${kleur.green("•")} Installing ${kleur.cyan(id)} (${kleur.green(version)})`,
       );
-      installing.done();
+      render.done();
     });
     operation.on("fail", () => {
-      installing(
+      render(
         `  ${kleur.red("•")} Installing ${kleur.cyan(id)} (${kleur.bold().white(version)})` +
           `: ${kleur.bold().red("Fail")}`,
       );
-      installing.done();
+      render.done();
     });
   }
 }
@@ -94,35 +94,35 @@ export class Updating {
   constructor(protected readonly updatable: LogUpdate) {}
 
   watch(operation: UpdateOperation) {
-    const installing = this.updatable;
+    const render = this.updatable;
 
     const id = operation.spec.id;
     const originalVersion = operation.lock.version.toString("clean");
     const targetVersion = operation.version.toString("clean");
 
     operation.on("start", () => {
-      installing(
+      render(
         `  ${kleur.cyan("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.bold().white(targetVersion)})`,
       );
     });
     operation.on("progress", progress => {
-      installing(
+      render(
         `  ${kleur.cyan("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.bold().white(targetVersion)})` +
           `: ${kleur.blue("Downloading...")} ${kleur.bold().white((progress * 100).toFixed(0).concat("%"))}`,
       );
     });
     operation.on("complete", () => {
-      installing(
+      render(
         `  ${kleur.green("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.green(targetVersion)})`,
       );
-      installing.done();
+      render.done();
     });
     operation.on("fail", () => {
-      installing(
+      render(
         `  ${kleur.red("•")} Updating ${kleur.cyan(id)} (${kleur.bold().white(originalVersion)} -> ${kleur.bold().white(targetVersion)})` +
           `: ${kleur.bold().red("Fail")}`,
       );
-      installing.done();
+      render.done();
     });
   }
 }
@@ -131,16 +131,16 @@ export class Removing {
   constructor(protected readonly updatable: LogUpdate) {}
 
   watch(operation: RemoveOperation) {
-    const removing = this.updatable;
+    const render = this.updatable;
 
     const id = operation.lock.id;
 
     operation.on("start", () => {
-      removing(`  ${kleur.cyan("•")} Removing ${kleur.cyan(id)}`);
+      render(`  ${kleur.cyan("•")} Removing ${kleur.cyan(id)}`);
     });
     operation.on("complete", () => {
-      removing(`  ${kleur.green("•")} Removing ${kleur.cyan(id)}`);
-      removing.done();
+      render(`  ${kleur.green("•")} Removing ${kleur.cyan(id)}`);
+      render.done();
     });
   }
 }
