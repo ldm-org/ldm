@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.2.3...loose-dependency-manager-v1.3.0) (2025-02-06)
+
+
+### Features
+
+* cleaner log ([21443e7](https://github.com/ldm-org/ldm/commit/21443e7c9c96882c8896b964ac7e80831fac343c))
+
+
+### Bug Fixes
+
+* version equaility functionality ([cb56538](https://github.com/ldm-org/ldm/commit/cb56538de11991b7296a9376199c46d5d549f585))
+
 ## [1.2.3](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.2.2...loose-dependency-manager-v1.2.3) (2025-02-05)
 
 
