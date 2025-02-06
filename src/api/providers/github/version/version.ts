@@ -18,6 +18,13 @@ export class GithubVersion extends Version {
       );
     }
   }
+
+  toString(format: "preserve" | "clean" = "preserve"): string {
+    if (this.type === "commit-sha" && format === "clean") {
+      return this.version.slice(0, 7);
+    }
+    return super.toString(format);
+  }
 }
 
 export namespace CommitSha {
