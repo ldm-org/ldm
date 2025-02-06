@@ -17,9 +17,12 @@ export class Version {
   }
 
   equals(other: Version | string) {
-    return (
-      this.version === other.toString() ||
-      semver.eq(this.version, other.toString())
-    );
+    const literallyEquals = this.version === other.toString();
+    try {
+      const semverEquals = semver.eq(this.version, other.toString());
+      return semverEquals || literallyEquals;
+    } catch {
+      return literallyEquals;
+    }
   }
 }
