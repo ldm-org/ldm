@@ -3,6 +3,7 @@ import { z } from "zod";
 import kleur from "kleur";
 import { diffZip } from "@/utils";
 import clone from "lodash/clone";
+import { not } from "fp-ts/lib/Predicate";
 import { Config } from "../config";
 import { Logger } from "../logging";
 import {
@@ -16,7 +17,6 @@ import { ArtifactTree } from "./artifact-tree";
 import { PrintableError } from "../error";
 import { DependencyLock } from "../models/lock/dependency";
 import { Installing, Removing, Resolving, Updating } from "./logging";
-import { not } from "fp-ts/lib/Predicate";
 
 export class Installer {
   protected readonly logger: Logger;
@@ -66,75 +66,83 @@ export class Installer {
     const resolving = new Resolving(this.logger.log.updatable());
     await resolving
       .wrap(async () => {
+        const resolves: Operation[] = [];
+
         for (const [id, [spec, lock]] of diffZip(
           clone(specification.dependencies),
           lockinfo.dependencies,
         )) {
-          if (spec && lock) {
-            if (frozen(spec.getExtendedURI() !== lock.uri)) {
-              lock.uri = spec.getExtendedURI();
-            }
-            let latestVersion = lock.version;
-            if (!lock.specifier.test(latestVersion) || upgrade) {
-              latestVersion = await spec.getLatestVersion();
-            }
-            if (
-              frozen(!lock.version.equals(latestVersion)) ||
-              (force && targets!.includes(id))
-            ) {
-              operations.push(
-                new UpdateOperation(
-                  spec,
-                  lock,
-                  latestVersion,
-                  operationOptions,
-                ),
-              ); // Update
-            } else {
-              const tree = new ArtifactTree(spec, lock, operationOptions);
-              await tree.hydrate();
-              if (frozen(!tree.isComplete)) {
+          resolves.push(
+            new Operation("resolve", async () => {
+              if (spec && lock) {
+                if (frozen(spec.getExtendedURI() !== lock.uri)) {
+                  lock.uri = spec.getExtendedURI();
+                }
+                let latestVersion = lock.version;
+                if (!lock.specifier.test(latestVersion) || upgrade) {
+                  latestVersion = await spec.getLatestVersion();
+                }
+                if (
+                  frozen(!lock.version.equals(latestVersion)) ||
+                  (force && targets!.includes(id))
+                ) {
+                  operations.push(
+                    new UpdateOperation(
+                      spec,
+                      lock,
+                      latestVersion,
+                      operationOptions,
+                    ),
+                  ); // Update
+                } else {
+                  const tree = new ArtifactTree(spec, lock, operationOptions);
+                  await tree.hydrate();
+                  if (frozen(!tree.isComplete)) {
+                    operations.push(
+                      new InstallOperation(spec, lock, operationOptions),
+                    ); // Install
+                  } else {
+                    operations.push(
+                      new Operation("ArtifactTree:apply", () => tree.apply()),
+                    ); // ArtifactTree:apply
+                  }
+                }
+              } else if (frozen(spec && !lock)) {
+                const id = spec!.id;
                 operations.push(
-                  new InstallOperation(spec, lock, operationOptions),
+                  new InstallOperation(
+                    spec!,
+                    lockinfo.dependencies
+                      .set(
+                        id,
+                        new DependencyLock({
+                          id: id,
+                          uri: spec!.getExtendedURI(),
+                          version: (await spec!.getLatestVersion()).toString(),
+                          artifacts: {},
+                          destinations: spec!.destinations,
+                        }),
+                      )
+                      .get(id)!,
+                    operationOptions,
+                  ),
                 ); // Install
+              } else if (frozen(!spec && lock)) {
+                const operation = new RemoveOperation(lock!, operationOptions);
+                operation.on("complete", () => {
+                  lockinfo.dependencies.delete(lock!.id);
+                });
+                operations.push(operation); // Remove
               } else {
-                operations.push(
-                  new Operation("ArtifactTree:apply", () => tree.apply()),
-                ); // ArtifactTree:apply
+                throw new Error(
+                  "This should never happen. If you see this, please report this as a bug.",
+                );
               }
-            }
-          } else if (frozen(spec && !lock)) {
-            const id = spec!.id;
-            operations.push(
-              new InstallOperation(
-                spec!,
-                lockinfo.dependencies
-                  .set(
-                    id,
-                    new DependencyLock({
-                      id: id,
-                      uri: spec!.getExtendedURI(),
-                      version: (await spec!.getLatestVersion()).toString(),
-                      artifacts: {},
-                      destinations: spec!.destinations,
-                    }),
-                  )
-                  .get(id)!,
-                operationOptions,
-              ),
-            ); // Install
-          } else if (frozen(!spec && lock)) {
-            const operation = new RemoveOperation(lock!, operationOptions);
-            operation.on("complete", () => {
-              lockinfo.dependencies.delete(lock!.id);
-            });
-            operations.push(operation); // Remove
-          } else {
-            throw new Error(
-              "This should never happen. If you see this, please report this as a bug.",
-            );
-          }
+            }),
+          );
         }
+
+        await Promise.all(resolves.map(resolve => resolve.execute()));
       })
       .execute();
 

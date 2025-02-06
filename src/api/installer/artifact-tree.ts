@@ -3,11 +3,12 @@ import union from "lodash/union";
 import { existsSync } from "fs";
 import SHA256 from "crypto-js/sha256";
 import { dirname, isAbsolute, join } from "path";
+import { diffZip, rmtree } from "@/utils";
 import { LockedArtifact } from "../models/lock/artifact";
 import { DependencyLock } from "../models/lock/dependency";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import { Dependency } from "../models/dependency/dependency";
-import { diffZip, rmtree } from "@/utils";
+import { Task } from "./task";
 
 export class ArtifactTree {
   public readonly files: Map<string, ArtifactTreeFile>;
@@ -119,5 +120,3 @@ class ArtifactTreeFile {
     public readonly content: string | Buffer,
   ) {}
 }
-
-type Task = () => Promise<void>;
