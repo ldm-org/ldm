@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
   pull_request:
     branches:
-      - release-please--branches--master
+      - master
 
 name: test
 
