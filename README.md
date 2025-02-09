@@ -45,6 +45,8 @@ Currently, it supports the following sources:
 
 ## Installation
 
+Before installing `ldm`, you need to have [Node.js](https://nodejs.org/en/download) installed.
+
 ```sh
 npm install -g loose-dependency-manager
 ```
