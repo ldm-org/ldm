@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.4](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.3.3...loose-dependency-manager-v1.3.4) (2025-02-09)
+
+
+### Bug Fixes
+
+* removal goes first ([fb31329](https://github.com/ldm-org/ldm/commit/fb3132997fdd3a6792a6fe6efe24c10df6c75b2c))
+
+
+### Performance Improvements
+
+* faster resolving ([59b76cd](https://github.com/ldm-org/ldm/commit/59b76cdd5a0991a53e3054d72344ee4c8761aa59))
+
 ## [1.3.3](https://github.com/ldm-org/ldm/compare/loose-dependency-manager-v1.3.2...loose-dependency-manager-v1.3.3) (2025-02-06)
 
 
