@@ -6,7 +6,7 @@ import { Dependency } from "@/api/models/dependency/dependency";
 import { Operation } from "./operation";
 import { RemoveOperation } from "./remove";
 
-export class UpdateOperation extends Operation {
+export class UpdateOperation extends Operation<UpdateOperationEvent> {
   protected readonly deleteFilesOnRemove: boolean;
 
   constructor(
@@ -84,13 +84,46 @@ export class UpdateOperation extends Operation {
       throw error;
     }
   }
-
-  on(event: "start" | "complete", listener: () => void): void;
-  on(event: "fail", listener: (error: any) => void): void;
-  on(event: "progress", listener: (progress: number) => void): void;
-  on(event: UpdateOperationEvent, listener: (...args: any[]) => void): void {
-    return super.on(event, listener);
-  }
 }
 
-type UpdateOperationEvent = "start" | "progress" | "complete" | "fail";
+type UpdateOperationEvent =
+  /**
+   * @description
+   * Emitted when the operation starts.
+   *
+   * Callback signature:
+   * ```typescript
+   * () => void
+   * ```
+   */
+  | "start"
+  /**
+   * @description
+   * Emitted when the operation starts.
+   *
+   * Callback signature:
+   * ```typescript
+   * (progress: number) => void
+   * ```
+   */
+  | "progress"
+  /**
+   * @description
+   * Emitted when the operation starts.
+   *
+   * Callback signature:
+   * ```typescript
+   * () => void
+   * ```
+   */
+  | "complete"
+  /**
+   * @description
+   * Emitted when the operation starts.
+   *
+   * Callback signature:
+   * ```typescript
+   * (error: any) => void
+   * ```
+   */
+  | "fail";

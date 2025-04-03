@@ -2,7 +2,7 @@ import { rmtree } from "@/utils";
 import { DependencyLock } from "../../models/lock/dependency";
 import { Operation } from "./operation";
 
-export class RemoveOperation extends Operation {
+export class RemoveOperation extends Operation<RemoveOperationEvent> {
   protected readonly deleteFilesOnRemove: boolean;
 
   constructor(
@@ -24,10 +24,26 @@ export class RemoveOperation extends Operation {
     }
     this.emit("complete");
   }
-
-  on(event: RemoveOperationEvent, listener: (...args: any[]) => void): void {
-    return super.on(event, listener);
-  }
 }
 
-type RemoveOperationEvent = "start" | "complete";
+type RemoveOperationEvent =
+  /**
+   * @description
+   * Emitted when the operation starts.
+   *
+   * Callback signature:
+   * ```typescript
+   * () => void
+   * ```
+   */
+  | "start"
+  /**
+   * @description
+   * Emitted when the operation completes.
+   *
+   * Callback signature:
+   * ```typescript
+   * () => void
+   * ```
+   */
+  | "complete";

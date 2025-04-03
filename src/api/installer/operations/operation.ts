@@ -1,11 +1,15 @@
-type Callback = (...args: any[]) => void | Promise<void>;
+import { AsyncOrSync } from "ts-essentials";
 
-export class Operation {
-  protected readonly hooks: Map<string, Callback[]>;
+type Callback<Args extends Array<any> = Array<any>, Return = any> = (
+  ...args: Args
+) => AsyncOrSync<Return>;
+
+export class Operation<Event extends string = string> {
+  protected readonly hooks: Map<Event, Callback[]>;
 
   constructor(
     protected readonly type: string,
-    protected readonly executor?: () => void | Promise<void>,
+    protected readonly executor?: () => AsyncOrSync<any>,
   ) {
     this.hooks = new Map();
   }
@@ -16,14 +20,14 @@ export class Operation {
     }
   }
 
-  on(event: string, callback: Callback) {
+  on(event: Event, callback: Callback) {
     if (!this.hooks.has(event)) {
       this.hooks.set(event, []);
     }
     this.hooks.get(event)!.push(callback);
   }
 
-  emit(event: string, args: any[] = []) {
+  emit(event: Event, args: any[] = []) {
     for (const callback of this.hooks.get(event) ?? []) {
       callback(...args);
     }
